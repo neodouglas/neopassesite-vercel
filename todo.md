@@ -36,3 +36,7 @@
 
 - [x] Corrigir outputDirectory no vercel.json
 
+
+
+- [x] Corrigir erro FUNCTION_INVOCATION_FAILED na serverless function da Vercel
+

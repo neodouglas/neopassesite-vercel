@@ -111,3 +111,4 @@ data/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+api/index.js
