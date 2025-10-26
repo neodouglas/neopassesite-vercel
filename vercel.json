@@ -1,17 +1,13 @@
 {
+  "version": 2,
   "buildCommand": "pnpm build",
   "outputDirectory": "client/dist",
-  "installCommand": "pnpm install",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "/api"
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
     }
   ]
 }
