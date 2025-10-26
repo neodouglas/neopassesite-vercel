@@ -23,3 +23,9 @@
 - [x] Atualizar schema para tipos compatíveis com SQLite
 - [x] Testar migração e funcionalidades
 
+
+
+## Bugs
+
+- [ ] Corrigir erro de build na Vercel (site exibindo código fonte ao invés da interface)
+
