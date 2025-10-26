@@ -40,3 +40,7 @@
 
 - [x] Corrigir erro FUNCTION_INVOCATION_FAILED na serverless function da Vercel
 
+
+
+- [x] Corrigir erro de runtime no vercel.json
+
