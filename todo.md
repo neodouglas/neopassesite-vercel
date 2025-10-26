@@ -14,3 +14,12 @@
 - [x] Testar fluxo completo de consulta
 - [x] Ajustes de design e UX
 
+
+
+## Melhorias
+
+- [x] Migrar de MySQL para SQLite (banco de dados local)
+- [x] Atualizar configuração do Drizzle para SQLite
+- [x] Atualizar schema para tipos compatíveis com SQLite
+- [x] Testar migração e funcionalidades
+

@@ -1,19 +1,12 @@
 {
   "version": "7",
-  "dialect": "mysql",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1761484702960,
-      "tag": "0000_sudden_purple_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1761484733254,
-      "tag": "0001_glorious_triton",
+      "version": "6",
+      "when": 1761485385857,
+      "tag": "0000_supreme_hawkeye",
       "breakpoints": true
     }
   ]

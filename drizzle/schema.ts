@@ -1,25 +1,25 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 /**
  * Core user table backing auth flow.
  * Extend this file with additional tables as your product grows.
  * Columns use camelCase to match both database fields and generated types.
  */
-export const users = mysqlTable("users", {
+export const users = sqliteTable("users", {
   /**
    * Surrogate primary key. Auto-incremented numeric value managed by the database.
    * Use this for relations between tables.
    */
-  id: int("id").autoincrement().primaryKey(),
+  id: integer("id").primaryKey({ autoIncrement: true }),
   /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
-  openId: varchar("openId", { length: 64 }).notNull().unique(),
+  openId: text("openId").notNull().unique(),
   name: text("name"),
-  email: varchar("email", { length: 320 }),
-  loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  email: text("email"),
+  loginMethod: text("loginMethod"),
+  role: text("role", { enum: ["user", "admin"] }).default("user").notNull(),
+  createdAt: integer("createdAt", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  lastSignedIn: integer("lastSignedIn", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
 
 export type User = typeof users.$inferSelect;
@@ -28,16 +28,17 @@ export type InsertUser = typeof users.$inferInsert;
 /**
  * Tabela para armazenar histórico de consultas de contas Free Fire
  */
-export const accountQueries = mysqlTable("accountQueries", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").references(() => users.id),
-  uid: varchar("uid", { length: 64 }).notNull(),
+export const accountQueries = sqliteTable("accountQueries", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  userId: integer("userId").references(() => users.id),
+  uid: text("uid").notNull(),
   nickname: text("nickname"),
-  level: int("level"),
-  xp: int("xp"),
-  accountId: varchar("accountId", { length: 64 }),
-  queriedAt: timestamp("queriedAt").defaultNow().notNull(),
+  level: integer("level"),
+  xp: integer("xp"),
+  accountId: text("accountId"),
+  queriedAt: integer("queriedAt", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
 
 export type AccountQuery = typeof accountQueries.$inferSelect;
 export type InsertAccountQuery = typeof accountQueries.$inferInsert;
+

@@ -14,29 +14,29 @@ Site para consulta segura de informações de contas Free Fire com backend inter
 ## 📋 Pré-requisitos
 
 - Node.js 18+
-- Banco de dados MySQL ou TiDB
 - Conta na Vercel (para deploy)
+
+**Sem necessidade de banco de dados externo!** O projeto usa SQLite local.
 
 ## 🔧 Variáveis de Ambiente
 
 Configure as seguintes variáveis de ambiente na Vercel:
 
 ```env
-# Banco de Dados
-DATABASE_URL=mysql://user:password@host:port/database
-
-# Autenticação
+# Autenticação (OBRIGATÓRIO)
 JWT_SECRET=sua-chave-secreta-aleatoria-aqui
 
-# OAuth (se necessário)
+# OAuth (OPCIONAL - apenas se quiser autenticação de usuários)
 OAUTH_SERVER_URL=https://api.manus.im
 VITE_OAUTH_PORTAL_URL=https://login.manus.im
 VITE_APP_ID=seu-app-id
 
-# Aplicação
+# Aplicação (OPCIONAL)
 VITE_APP_TITLE=NeoPasse - Consulta de Contas Free Fire
 VITE_APP_LOGO=https://seu-logo-url.com/logo.png
 ```
+
+**⚠️ Importante:** O banco de dados é **SQLite local** (arquivo `data/database.sqlite`), não é necessário configurar `DATABASE_URL`!
 
 ## 📦 Deploy na Vercel
 
