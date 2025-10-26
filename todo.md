@@ -32,3 +32,7 @@
 - [x] Simplificar arquitetura para Vercel (remover dependência de banco de dados para deploy)
 - [x] Criar versão serverless otimizadaa
 
+
+
+- [x] Corrigir outputDirectory no vercel.json
+
