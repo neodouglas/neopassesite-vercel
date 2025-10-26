@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -89,4 +89,53 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+/**
+ * Salva uma consulta de conta no histórico
+ */
+export async function saveAccountQuery(query: {
+  userId?: number;
+  uid: string;
+  nickname?: string;
+  level?: number;
+  xp?: number;
+  accountId?: string;
+}) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot save account query: database not available");
+    return;
+  }
+
+  const { accountQueries } = await import("../drizzle/schema");
+  
+  await db.insert(accountQueries).values({
+    userId: query.userId,
+    uid: query.uid,
+    nickname: query.nickname ?? null,
+    level: query.level ?? null,
+    xp: query.xp ?? null,
+    accountId: query.accountId ?? null,
+  });
+}
+
+/**
+ * Busca histórico de consultas de um usuário
+ */
+export async function getUserAccountQueries(userId: number, limit: number = 10) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get account queries: database not available");
+    return [];
+  }
+
+  const { accountQueries } = await import("../drizzle/schema");
+  
+  const result = await db
+    .select()
+    .from(accountQueries)
+    .where(eq(accountQueries.userId, userId))
+    .orderBy(desc(accountQueries.queriedAt))
+    .limit(limit);
+
+  return result;
+}

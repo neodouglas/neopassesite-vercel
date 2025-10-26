@@ -25,4 +25,19 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Tabela para armazenar histórico de consultas de contas Free Fire
+ */
+export const accountQueries = mysqlTable("accountQueries", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").references(() => users.id),
+  uid: varchar("uid", { length: 64 }).notNull(),
+  nickname: text("nickname"),
+  level: int("level"),
+  xp: int("xp"),
+  accountId: varchar("accountId", { length: 64 }),
+  queriedAt: timestamp("queriedAt").defaultNow().notNull(),
+});
+
+export type AccountQuery = typeof accountQueries.$inferSelect;
+export type InsertAccountQuery = typeof accountQueries.$inferInsert;
