@@ -44,3 +44,7 @@
 
 - [x] Corrigir erro de runtime no vercel.json
 
+
+
+- [x] Adicionar rewrites no vercel.json para rotear /api/* corretamente
+
