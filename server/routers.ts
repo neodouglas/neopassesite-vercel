@@ -32,9 +32,8 @@ export const appRouter = router({
         }
         return { input: input as string };
       })
-      .mutation(async ({ input, ctx }) => {
+      .mutation(async ({ input }) => {
         const { parseAccountInput, fetchAccountInfo } = await import('./freefire');
-        const { saveAccountQuery } = await import('./db');
         
         // Parseia entrada do usuário
         const credentials = parseAccountInput(input.input);
@@ -45,37 +44,13 @@ export const appRouter = router({
         // Consulta API externa
         const accountInfo = await fetchAccountInfo(credentials);
         
-        // Salva no histórico (se usuário estiver logado)
-        if (ctx.user) {
-          await saveAccountQuery({
-            userId: ctx.user.id,
-            uid: credentials.uid,
-            nickname: accountInfo.nickname,
-            level: accountInfo.level,
-            xp: accountInfo.xp,
-            accountId: accountInfo.id.toString(),
-          });
-        }
-        
         return {
           success: true,
           data: accountInfo,
         };
       }),
-    
-    /**
-     * Busca histórico de consultas do usuário
-     */
-    history: publicProcedure
-      .query(async ({ ctx }) => {
-        if (!ctx.user) {
-          return [];
-        }
-        
-        const { getUserAccountQueries } = await import('./db');
-        return await getUserAccountQueries(ctx.user.id, 20);
-      }),
   }),
 });
 
 export type AppRouter = typeof appRouter;
+

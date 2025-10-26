@@ -25,7 +25,10 @@
 
 
 
-## Bugs
+### Bugs
 
-- [ ] Corrigir erro de build na Vercel (site exibindo código fonte ao invés da interface)
+- [x] Corrigir erro de build na Vercel (site exibindo código fonte ao invés da interface)
+
+- [x] Simplificar arquitetura para Vercel (remover dependência de banco de dados para deploy)
+- [x] Criar versão serverless otimizadaa
 
